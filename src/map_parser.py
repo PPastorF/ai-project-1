@@ -60,15 +60,12 @@ def diag_adjacents(array, index):
 		i = index[0]
 		j = index[1]
 		if (0 <= i < len(array)) and (0 <= j < len(array[i])):
-			adj.append( (i,j) )
+			adj.append( (i,j) ) 
 
 	return adj
 
-# retorna um nome para um no, de acordo com as coordenadas no mapa (ou matriz) que representa
-def node_name(array, index):
-	return str(index[0])+':'+str(index[1])
-
-# dado uma matriz que representa uma mapa, retorna um grafo que representa tal mapa
+# dado uma matriz que representa uma mapa, retorna um grafo que 
+#representa tal mapa
 def create_graph(map_array):
 	
 	WEIGHT_SIDE = 1
@@ -84,15 +81,21 @@ def create_graph(map_array):
 			# '*' = no normal
 			# '#' = no inicial
 			# '$' = no final
-			name = node_name( map_array, (i,j) )
+			name = G.node_name( map_array, (i,j) )
 
 			if value != '-':
 				G.insert_node(name)
 
 			if value == '#':
-				G.set_start(name)
+				if G.start_node == '':
+					G.set_start(name)
+				else:
+					print("ERRO: Mapa contem mais de um ponto de inicio.")
 			elif value == '$':
-				G.set_end(name)
+				if G.end_node == '':
+					G.set_end(name)
+				else:
+					print("ERRO: Mapa contem mais de um ponto final.")
 
 	# inserindo arestas no gafo
 	for i, row in enumerate(map_array):
@@ -103,14 +106,17 @@ def create_graph(map_array):
 					ai = a[0]
 					aj = a[1]
 					if map_array[ai][aj] != '-':
-						# print(map_array[ai][aj])
-						G.insert_arc(node_name(map_array, (i,j)), node_name(map_array, a), WEIGHT_SIDE)
+						G.insert_arc(G.node_name(map_array, (i,j)),
+									 G.node_name(map_array, a), 
+									 WEIGHT_SIDE )
 
 				for a in diag_adjacents( map_array, (i,j) ):
 					ai = a[0]
 					aj = a[1]
 					if map_array[ai][aj] != '-':
-						# print(map_array[ai][aj])
-						G.insert_arc(node_name(map_array, (i,j)), node_name(map_array, a), WEIGHT_DIAG)
+						G.insert_arc(G.node_name(map_array, (i,j)),
+									 G.node_name(map_array, a),
+									 WEIGHT_DIAG )
+
 
 	return G
