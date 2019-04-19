@@ -62,7 +62,7 @@ class Graph(object):
 		for edge in node_edges:
 			dest_node =	 edge[0]
 
-			if dest_node not in visited:		
+			if dest_node not in visited:
 				
 				subpath = self.depth_first(dest_node, end, path)
 
@@ -70,8 +70,28 @@ class Graph(object):
 					path.append(start)
 					return path
 
-	def breadth_first():
-		pass
+	def breadth_first(self, start, end):
+		queue = [[start]]
+		
+		####
+		while queue:
+			path = queue.pop(0)
+
+			####
+			node = path[-1]
+			if node == end:
+				return path
+
+			####
+			node_edges = self.struct[node]
+			for edge in node_edges:
+				dest_node = edge[0]
+
+				enqueue = list(path)
+				enqueue.append(dest_node)
+
+				queue.append(enqueue)
+
 
 	def best_first():
 		pass

@@ -18,12 +18,13 @@ def test():
 
 	grafo = create_graph(arr)
 
-
-	# print(json.dumps(grafo.struct, indent=2))
 	print('Caminho entre '+grafo.start_node+' e '+grafo.end_node+':')
-	print("DFS:")
-
+	# print("DFS:")
 	print( grafo.depth_first(grafo.start_node, grafo.end_node)[::-1] )
+
+	print("BFS:")
+	print( grafo.breadth_first(grafo.start_node, grafo.end_node) )
+
 
 if __name__ == '__main__':
 	test()
