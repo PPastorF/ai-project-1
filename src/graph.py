@@ -1,4 +1,6 @@
 from math import sqrt
+from ast import literal_eval
+from src.tools import *
 
 class Graph(object):
 
@@ -96,5 +98,51 @@ class Graph(object):
 	def best_first():
 		pass
 
-	def a_star():
-		pass
+	def a_star(self, start, end):
+		###
+		fringe     = []
+		node_table = {}
+
+		###				
+		g = 0
+		f = g + euclidian_distance(start, end)
+		start_node = {
+			start: {
+				"g": g,
+				"f": f,
+				"predecessor": None
+			}
+		}
+
+		fringe.append( (start, f) )
+		node_table.update(start_node)
+
+		###
+		while True:
+			###
+			fringe.sort(key=lambda tup: tup[1])
+			start = fringe.pop(0)[0]
+			
+			###
+			node_edges = self.struct[start]
+			for edge in node_edges:
+				dest_node   = edge[0]
+				edge_weight = edge[1]
+
+				g = node_table[start]['g'] + edge_weight
+				f = g + euclidian_distance(start, end)
+				
+				###
+				adjacent = {
+					dest_node: {
+						"g": g,
+						"f": f,
+						"predecessor": start		
+					}
+				}
+
+				###
+				if dest_node not in node_table.keys():
+					node_table.update(adjacent)
+
+			break

@@ -12,19 +12,20 @@ def test():
 
 	arr = [
 		['#', '*', '*'],
-		['*', '-', '-'],
+		['*', '*', '-'],
 		['*', '*', '$']
 	]
 
 	grafo = create_graph(arr)
 
-	print('Caminho entre '+grafo.start_node+' e '+grafo.end_node+':')
+	# print('Caminho entre '+grafo.start_node+' e '+grafo.end_node+':')
 	# print("DFS:")
-	print( grafo.depth_first(grafo.start_node, grafo.end_node)[::-1] )
+	# print( grafo.depth_first(grafo.start_node, grafo.end_node)[::-1] )
 
-	print("BFS:")
-	print( grafo.breadth_first(grafo.start_node, grafo.end_node) )
+	# print("BFS:")
+	# print( grafo.breadth_first(grafo.start_node, grafo.end_node) )
 
+	grafo.a_star(grafo.start_node, grafo.end_node)
 
 if __name__ == '__main__':
 	test()
