@@ -1,6 +1,7 @@
 from math import sqrt
 from ast import literal_eval
 from src.tools import *
+from pprint import PrettyPrinter as PP
 
 class Graph(object):
 
@@ -47,10 +48,13 @@ class Graph(object):
 	def set_end(self, node_name):
 		self.end_node = node_name
 
-	def depth_first(self, start, end, path=None, visited=[]):
+	def depth_first(self, start, end, path=None, visited=None):
 		#####
 		if path is None:
 			path = []
+
+		if visited is None:
+			visited = []
 
 		visited.append(start)
 
@@ -66,7 +70,7 @@ class Graph(object):
 
 			if dest_node not in visited:
 				
-				subpath = self.depth_first(dest_node, end, path)
+				subpath = self.depth_first(dest_node, end, path, visited)
 
 				if subpath != None:
 					path.append(start)
@@ -99,9 +103,14 @@ class Graph(object):
 		pass
 
 	def a_star(self, start, end):
+		pp = PP(depth=4)
+
 		###
+		node_data  = {}
 		fringe     = []
-		node_table = {}
+		path       = []
+		done 	   = []
+		found = False
 
 		###				
 		g = 0
@@ -115,34 +124,67 @@ class Graph(object):
 		}
 
 		fringe.append( (start, f) )
-		node_table.update(start_node)
+		node_data.update(start_node)
 
 		###
-		while True:
+		while fringe:
 			###
 			fringe.sort(key=lambda tup: tup[1])
-			start = fringe.pop(0)[0]
-			
+			current_node = fringe.pop(0)[0]
+
+			if current_node == end:
+				found = True
+				break
+
+			if current_node in done:
+				continue
+
+			h = euclidian_distance(current_node, end)
+
 			###
-			node_edges = self.struct[start]
+			node_edges = self.struct[current_node]
 			for edge in node_edges:
 				dest_node   = edge[0]
 				edge_weight = edge[1]
 
-				g = node_table[start]['g'] + edge_weight
-				f = g + euclidian_distance(start, end)
-				
+				if dest_node in done:
+					continue
+
+				if dest_node not in fringe:
+					fringe.append( (dest_node, f) )
+
+				g = node_data[current_node]['g'] + edge_weight
+				f = g + h
+
+
 				###
 				adjacent = {
 					dest_node: {
 						"g": g,
 						"f": f,
-						"predecessor": start		
+						"predecessor": current_node		
 					}
 				}
 
 				###
-				if dest_node not in node_table.keys():
-					node_table.update(adjacent)
+				if dest_node not in node_data.keys():
+					node_data.update(adjacent)
+				elif f < node_data[dest_node]['f']:
+					node_data[dest_node] = adjacent[dest_node]
 
-			break
+			done.append(current_node)
+
+		###
+		if found:
+			path.append(end)
+			current_node = node_data[end]
+
+			while current_node['predecessor'] != None:
+				pred = current_node['predecessor']
+				path.append(pred)
+				current_node = node_data[pred]
+
+			return path[::-1]
+		
+		else:
+			return None

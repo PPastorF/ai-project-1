@@ -90,12 +90,14 @@ def create_graph(map_array):
 				if G.start_node == '':
 					G.set_start(name)
 				else:
-					print("ERRO: Mapa contem mais de um ponto de inicio.")
+					print("ERRO: Mapa contem mais de um ponto inicial.")
+					return None
 			elif value == '$':
 				if G.end_node == '':
 					G.set_end(name)
 				else:
 					print("ERRO: Mapa contem mais de um ponto final.")
+					return None
 
 	# inserindo arestas no gafo
 	for i, row in enumerate(map_array):
