@@ -1,6 +1,6 @@
 from math import sqrt
 from ast import literal_eval
-from src.tools import *
+from src.heuristics import heuristic_calc
 
 class Graph(object):
 
@@ -88,7 +88,6 @@ class Graph(object):
 			if node in visited:
 				continue
 
-			print(node)
 			if node == end:
 				return path
 
@@ -113,7 +112,7 @@ class Graph(object):
 		found = False
 
 		###
-		h = euclidian_distance(start, end)
+		h = heuristic_calc(start, end)
 		start_node = {
 			start: {
 				"h": h,
@@ -138,7 +137,7 @@ class Graph(object):
 			if current_node in done:
 				continue
 
-			dist = euclidian_distance(current_node, end)
+			dist = heuristic_calc(current_node, end)
 
 			###
 			node_edges = self.struct[current_node]
@@ -195,7 +194,7 @@ class Graph(object):
 
 		###
 		g = 0
-		f = g + euclidian_distance(start, end)
+		f = g + heuristic_calc(start, end)
 		start_node = {
 			start: {
 				"g": g,
@@ -221,7 +220,7 @@ class Graph(object):
 			if current_node in done:
 				continue
 
-			h = euclidian_distance(current_node, end)
+			h = heuristic_calc(current_node, end)
 
 			###
 			node_edges = self.struct[current_node]
