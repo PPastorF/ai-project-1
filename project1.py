@@ -24,7 +24,7 @@ def main():
 	#
 	gui_map = MapInterface(map_array)
 
-	#
+	
 	start_time = time.time()
 	path_dfs = grafo.depth_first(grafo.start_node, grafo.end_node)[::-1] 
 	dfs_time = time.time() - start_time

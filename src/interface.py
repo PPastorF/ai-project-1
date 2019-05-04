@@ -11,8 +11,8 @@ from tkinter import *
 from time import sleep
 from ast import literal_eval
 
-TILE_SIZE  = 40
-TILE_COLOR = "white"
+TILE_SIZE = 30
+TIMEOUT   = 0.2
 
 class MapInterface(object):
 
@@ -36,7 +36,6 @@ class MapInterface(object):
 									 fill=color)
 
 	def show_path(self, path):
-
 		for i in range(0,1):
 			self.canvas.delete("all")
 
@@ -56,7 +55,7 @@ class MapInterface(object):
 			for element in path:
 				coord = literal_eval(element)
 				self.create_tile(coord, "red")
-				sleep(0.3)
+				sleep(TIMEOUT)
 				self.root.update_idletasks()
 				self.root.update()
 
