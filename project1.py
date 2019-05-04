@@ -14,8 +14,6 @@ def main():
 	print( 'Caminho entre '+grafo.start_node+' e '+grafo.end_node+':' )
 
 	#
-
-	#
 	gui_map = MapInterface(map_array)
 
 	#
