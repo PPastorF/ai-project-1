@@ -1,3 +1,11 @@
+'''
+Projeto 1 - Inteligencia Artificial
+Professor Alneu de Andrade Lopes
+
+Pedro Pastorello Fernandes - NUSP 10262602
+Vinicius Leite Ribeiro - NUSP 10388200
+Luiz Guilherme Martins - NUSP 10392171
+'''
 from src.graph import Graph
 from src.map_parser import read_filemap, create_graph
 from src.interface import MapInterface

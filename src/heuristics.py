@@ -1,3 +1,12 @@
+'''
+Projeto 1 - Inteligencia Artificial
+Professor Alneu de Andrade Lopes
+
+Pedro Pastorello Fernandes - NUSP 10262602
+Vinicius Leite Ribeiro - NUSP 10388200
+Luiz Guilherme Martins - NUSP 10392171
+'''
+
 from math import sqrt
 from ast import literal_eval
 
