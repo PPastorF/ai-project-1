@@ -1,3 +1,3 @@
 ## graph-search
 
-College assignment on graph search algorithms
+College assignment on graph searching algorithms
